@@ -28,9 +28,9 @@ require('./config/express')(app);
 
 // if bluemix credentials exists, then override local
 var credentials = extend({
-  url: '<url>',
-  username: '<username>',
-  password: '<password>',
+  url: process.env.BLUEMIX_URL,
+  username: process.env.BLUEMIX_USERNAME,
+  password: process.env.BLUEMIX_PASSWORD,
   version: 'v1-experimental'
 }, bluemix.getServiceCreds('visual_insights')); // VCAP_SERVICES
 
@@ -65,6 +65,6 @@ app.get('/classifiers', function(req, res) {
 // error-handler settings
 require('./config/error-handler')(app);
 
-var port = process.env.VCAP_APP_PORT || 3000;
+var port = process.env.PORT || 5000;
 app.listen(port);
 console.log('listening at:', port);
